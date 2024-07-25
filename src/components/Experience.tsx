@@ -1,30 +1,100 @@
+import { Canvas } from '@react-three/fiber'
+import { Perf } from 'r3f-perf'
+import { ResponsiveCamera } from '@/components/ResponsiveCamera'
+
 import { OrbitControls } from '@react-three/drei'
-import * as THREE from 'three'
-import { useControls } from 'leva'
+import { Suspense } from 'react'
 
-import { useRef } from 'react'
-import { useFrame } from '@react-three/fiber'
-
-import vertexshader from '@/shaders/vertex.glsl'
-import fragmentShader from '@/shaders/fragment.glsl'
+import { Fbx } from '@/components/Fbx'
+import { Ground } from '@/components/Ground'
+import { Ray } from '@/components/Ray'
+import { CausticLight } from '@/components/CausticLight'
+import { Leva, useControls } from 'leva'
 
 export const Experience = (): JSX.Element => {
-  useFrame((state) => {
-    const { gl, clock, camera } = state
+  const {
+    lightIntensity,
+    wave_1,
+    wave_2,
+    color,
+    rayIntensity,
+    rayPos_1,
+    rayPos_2,
+    rayPos_3,
+  } = useControls({
+    lightIntensity: {
+      value: 0.4,
+      min: 0.1,
+      max: 3,
+      step: 0.1,
+    },
+    wave_1: {
+      value: 7.1,
+      min: 0,
+      max: 10,
+      step: 0.1,
+    },
+    wave_2: {
+      value: 5.9,
+      min: 0,
+      max: 10,
+      step: 0.1,
+    },
+    color: {
+      value: '#9ab4e4',
+      label: 'Color',
+      colors: true,
+      options: ['#9ab4e4', '#28519c', '#1e2a4a', '#0d0f18'],
+    },
+    rayIntensity: {
+      value: 0.16,
+      min: 0.01,
+      max: 0.5,
+      step: 0.01,
+    },
+    rayPos_1: {
+      value: [-4, 4, 0],
+    },
+    rayPos_2: {
+      value: [0, 4, -1],
+    },
+    rayPos_3: {
+      value: [5, 4, 5],
+    },
   })
+
+  const lightControls = {
+    wave_1: wave_1,
+    wave_2: wave_2,
+    lightIntensity: lightIntensity,
+  }
+
+  const rayControls = {
+    lightIntensity: rayIntensity,
+  }
 
   return (
     <>
-      <color attach="background" args={['#ffffff']} />
-      <OrbitControls />
-      <ambientLight intensity={0.01} />
-      <mesh>
-        <planeGeometry args={[1, 1, 1]} />
-        <shaderMaterial
-          vertexShader={vertexshader}
-          fragmentShader={fragmentShader}
-        />
-      </mesh>
+      <Canvas>
+        <ResponsiveCamera />
+        <Perf position="top-left" />
+        <fog attach="fog" args={['#28519c', 5, 20]} />
+        <color attach="background" args={['#28519c']} />
+        <OrbitControls />
+        <ambientLight intensity={1} color={'#000000'} />
+        <Suspense>
+          <Fbx url="/models/whale.fbx" position={[0, 2, 0]} />
+          <CausticLight
+            position={[0, 8, 0]}
+            color={color}
+            controls={lightControls}
+          />
+          <Ray radius={2} position={rayPos_1} intensity={rayIntensity} />
+          <Ray radius={1} position={rayPos_2} intensity={rayIntensity} />
+          <Ray radius={1} position={rayPos_3} intensity={rayIntensity} />
+          <Ground />
+        </Suspense>
+      </Canvas>
     </>
   )
 }

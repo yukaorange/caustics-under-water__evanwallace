@@ -1,9 +1,10 @@
 # r3f-vite-starter
-A boilerplate to build R3F projects
+
+
+# install
 
 ```
 yarn
 yarn dev
 
 ```
-
