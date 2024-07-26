@@ -19,7 +19,7 @@ interface CausticLightProps {
 export const CausticLight = ({
   position = [0, 5, 0],
   intensity = 1,
-  angle = Math.PI / 4,
+  angle = -Math.PI / 4,
   penumbra = 0.5,
   targetPosition = [0, 0, 0],
   color = '#9ab4e4',
@@ -59,7 +59,7 @@ export const CausticLight = ({
   }, [targetPosition])
 
   useEffect(() => {
-    const geometry = new THREE.PlaneGeometry(2, 2, 512, 512)
+    const geometry = new THREE.PlaneGeometry(2, 2, 200, 200)
 
     const mesh = new THREE.Mesh(
       geometry,

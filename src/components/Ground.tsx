@@ -34,7 +34,7 @@ export const Ground = () => {
   }, [])
 
   useEffect(() => {
-    const geometry = new THREE.PlaneGeometry(2, 2, 100, 100)
+    const geometry = new THREE.PlaneGeometry(2, 2, 30, 30)
     const mesh = new THREE.Mesh(
       geometry,
       materialRef.current as THREE.ShaderMaterial,
@@ -49,8 +49,13 @@ export const Ground = () => {
 
   return (
     <>
-      <mesh ref={meshRef} rotation-x={-Math.PI / 2} receiveShadow>
-        <planeGeometry args={[30, 30, 100, 100]} />
+      <mesh
+        position={[0, -1, 0]}
+        ref={meshRef}
+        rotation-x={-Math.PI / 2}
+        receiveShadow
+      >
+        <planeGeometry args={[30, 30, 30, 30]} />
         <meshStandardMaterial
           normalMap={normalMap}
           normalScale={new THREE.Vector2(2, 2)}

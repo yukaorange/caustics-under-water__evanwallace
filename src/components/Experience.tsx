@@ -47,13 +47,13 @@ export const Experience = (): JSX.Element => {
       options: ['#9ab4e4', '#28519c', '#1e2a4a', '#0d0f18'],
     },
     rayIntensity: {
-      value: 0.16,
+      value: 0.6,
       min: 0.01,
-      max: 0.5,
+      max: 1.5,
       step: 0.01,
     },
     rayPos_1: {
-      value: [-4, 4, 0],
+      value: [-7, 4, 0],
     },
     rayPos_2: {
       value: [0, 4, -1],
@@ -75,23 +75,23 @@ export const Experience = (): JSX.Element => {
 
   return (
     <>
+      <Leva collapsed />
       <Canvas>
         <ResponsiveCamera />
         <Perf position="top-left" />
         <fog attach="fog" args={['#28519c', 5, 20]} />
         <color attach="background" args={['#28519c']} />
-        <OrbitControls />
         <ambientLight intensity={1} color={'#000000'} />
         <Suspense>
-          <Fbx url="/models/whale.fbx" position={[0, 2, 0]} />
           <CausticLight
-            position={[0, 8, 0]}
+            position={[0, 4, 0]}
             color={color}
             controls={lightControls}
           />
           <Ray radius={2} position={rayPos_1} intensity={rayIntensity} />
           <Ray radius={1} position={rayPos_2} intensity={rayIntensity} />
           <Ray radius={1} position={rayPos_3} intensity={rayIntensity} />
+          <Fbx url="/models/whale.fbx" position={[0, 5, 0]} />
           <Ground />
         </Suspense>
       </Canvas>
