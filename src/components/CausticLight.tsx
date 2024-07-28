@@ -101,8 +101,8 @@ export const CausticLight = ({
       penumbra={penumbra}
       castShadow
       color={color}
-      shadow-mapSize-width={2}
-      shadow-mapSize-height={2}
+      shadow-mapSize-width={1024}
+      shadow-mapSize-height={1024}
       {...props}
     />
   )

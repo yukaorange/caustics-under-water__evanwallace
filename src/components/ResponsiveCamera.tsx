@@ -54,9 +54,9 @@ export const ResponsiveCamera = () => {
   }, [viewport])
 
   useFrame(() => {
-    const limitedMouseX = THREE.MathUtils.clamp(mouseX, -0.15, 0.15)
+    const limitedMouseX = THREE.MathUtils.clamp(mouseX, -0.1, 0.1)
 
-    const angle = limitedMouseX * Math.PI + Math.PI / 4
+    const angle = limitedMouseX * Math.PI + Math.PI / 2.25
 
     const newX = Math.sin(angle) * baseRadius
     const newZ = Math.cos(angle) * baseRadius

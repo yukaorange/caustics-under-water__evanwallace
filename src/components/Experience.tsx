@@ -10,6 +10,7 @@ import { Ground } from '@/components/Ground'
 import { Ray } from '@/components/Ray'
 import { CausticLight } from '@/components/CausticLight'
 import { Leva, useControls } from 'leva'
+import { Box } from './Box'
 
 export const Experience = (): JSX.Element => {
   const {
@@ -18,9 +19,9 @@ export const Experience = (): JSX.Element => {
     wave_2,
     color,
     rayIntensity,
-    rayPos_1,
-    rayPos_2,
-    rayPos_3,
+    pos_1,
+    pos_2,
+    // pos_3,
   } = useControls({
     lightIntensity: {
       value: 0.4,
@@ -35,7 +36,7 @@ export const Experience = (): JSX.Element => {
       step: 0.1,
     },
     wave_2: {
-      value: 5.9,
+      value: 3.2,
       min: 0,
       max: 10,
       step: 0.1,
@@ -52,15 +53,15 @@ export const Experience = (): JSX.Element => {
       max: 1.5,
       step: 0.01,
     },
-    rayPos_1: {
-      value: [-7, 4, 0],
+    pos_1: {
+      value: [1, 2, 2],
     },
-    rayPos_2: {
-      value: [0, 4, -1],
+    pos_2: {
+      value: [0.3, 0.2, 0],
     },
-    rayPos_3: {
-      value: [5, 4, 5],
-    },
+    // pos_3: {
+    //   value: [5, 4, 5],
+    // },
   })
 
   const lightControls = {
@@ -76,9 +77,9 @@ export const Experience = (): JSX.Element => {
   return (
     <>
       <Leva collapsed />
-      <Canvas>
+      <Canvas shadows>
         <ResponsiveCamera />
-        <Perf position="top-left" />
+        {/* <Perf position="top-left" /> */}
         <fog attach="fog" args={['#28519c', 5, 20]} />
         <color attach="background" args={['#28519c']} />
         <ambientLight intensity={1} color={'#000000'} />
@@ -88,10 +89,11 @@ export const Experience = (): JSX.Element => {
             color={color}
             controls={lightControls}
           />
-          <Ray radius={2} position={rayPos_1} intensity={rayIntensity} />
-          <Ray radius={1} position={rayPos_2} intensity={rayIntensity} />
-          <Ray radius={1} position={rayPos_3} intensity={rayIntensity} />
+          <Ray radius={4} position={pos_1} intensity={rayIntensity} />
+          {/* <Ray radius={1} position={pos_2} intensity={rayIntensity} /> */}
+          {/* <Ray radius={1} position={pos_3} intensity={rayIntensity} /> */}
           <Fbx url="/models/whale.fbx" position={[0, 5, 0]} />
+          <Box position={pos_2} />
           <Ground />
         </Suspense>
       </Canvas>

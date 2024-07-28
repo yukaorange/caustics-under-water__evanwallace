@@ -18,7 +18,7 @@ void main() {
 
   pos.z += sin(length(pos + uTime * 0.1) * uWave1 - uTime * 0.1) * decay * 0.5;
 
-  pos.z += cnoise(position.xzz * uWave2 + uTime * 0.1) * decay * 0.5;
+  pos.z += cnoise(position.xyz * uWave2 + uTime * 0.1) * decay * 0.5;
 
   vOldPos = position;
 

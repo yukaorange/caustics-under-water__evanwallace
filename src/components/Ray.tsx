@@ -19,7 +19,7 @@ interface RayProps {
 export const Ray = ({
   position = [0, 5, 0] as [number, number, number],
   radius = 2,
-  rotation_x = Math.PI / 4,
+  rotation_x = Math.PI / 6,
   rotation_z = 0,
   intensity = 1,
   ...props
@@ -47,14 +47,15 @@ export const Ray = ({
   })
 
   return (
-    <Cylinder
+    <Cone
       ref={rayRef}
       position={position}
       rotation-x={rotation_x}
       rotation-z={rotation_z}
-      args={[radius, radius, 15, 32, 32, false, 0, Math.PI * 2]}
+      args={[radius, 20, 32, 32]}
     >
       <primitive object={shaderMaterial} />
-    </Cylinder>
+    </Cone>
+    
   )
 }

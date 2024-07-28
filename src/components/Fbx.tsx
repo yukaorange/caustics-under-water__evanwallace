@@ -52,7 +52,7 @@ export const LoadedFbx = ({ url, position }: FbxProps) => {
 
         material.userData = {
           time: timeRef.current,
-          color: new THREE.Uniform(new THREE.Color('#023042')),
+          color: new THREE.Uniform(new THREE.Color('#00151d')),
         }
 
         material.onBeforeCompile = (shader) => {
@@ -88,11 +88,11 @@ export const LoadedFbx = ({ url, position }: FbxProps) => {
 
             float glitchTime = uTime - worldPosition.y;
 
-            float glitchStrength = sin(glitchTime) + sin(glitchTime * 3.4);
+            float glitchStrength = sin(glitchTime) + sin(glitchTime * 3.4) + sin(glitchTime * 8.7);
 
-            glitchStrength /= 2.0;
+            glitchStrength /= 3.0;
             
-            glitchStrength *= 0.15;
+            glitchStrength *= 0.08;
 
             worldPosition.x += (random2D(worldPosition.xz + uTime) - 0.5)* glitchStrength;
             worldPosition.z += (random2D(worldPosition.zx + uTime) - 0.5)*glitchStrength;
@@ -123,13 +123,13 @@ export const LoadedFbx = ({ url, position }: FbxProps) => {
             fragmentShader,
           )
 
-          console.log(
-            `
-            vertex:${shader.vertexShader}
-            `,
-            '\n',
-            // `fragment:${shader.fragmentShader}`,
-          )
+          // console.log(
+          //   `
+          //   vertex:${shader.vertexShader}
+          //   `,
+          //   '\n',
+          //   `fragment:${shader.fragmentShader}`,
+          // )
         }
       }
     })
@@ -142,14 +142,15 @@ export const LoadedFbx = ({ url, position }: FbxProps) => {
       mixerRef.current.update(delta)
     }
 
-    const radius = 3
+    const radiusX = 12 + Math.sin(clock.getElapsedTime() * 0.2)
+    const radiusZ = 4 + Math.cos(clock.getElapsedTime() * 0.1)
 
-    const time = clock.getElapsedTime() * 0.5
+    const time = clock.getElapsedTime() * 0.1
 
     const newPosition = new THREE.Vector3(
-      Math.cos(time) * radius,
-      1.5,
-      Math.sin(time) * radius,
+      Math.cos(time) * radiusX,
+      0.2,
+      Math.sin(time) * radiusZ,
     )
 
     const direction = new THREE.Vector3()
@@ -163,7 +164,7 @@ export const LoadedFbx = ({ url, position }: FbxProps) => {
 
     timeRef.current.value = time
 
-    fbx.quaternion.slerp(targetQuaternion, 0.1)
+    fbx.quaternion.slerp(targetQuaternion, 0.01)
 
     fbx.position.copy(newPosition)
   })
