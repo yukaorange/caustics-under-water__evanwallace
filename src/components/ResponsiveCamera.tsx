@@ -27,7 +27,7 @@ export const ResponsiveCamera = () => {
         fov = 45
       } else {
         // 縦長の画面
-        radius = 10
+        radius = 16
         y = 2.5
         fov = 45
       }
