@@ -8,7 +8,7 @@ export const Sns = (): JSX.Element => {
     <>
       <div className="sns _en" data-open={menuState.isOpen}>
         <div className="sns__links">
-          <a target="_blank" href="https://github.com/yukaorange" className="">
+          <a target="_blank" href="https://github.com/yukaorange/caustics-under-water__evanwallace" className="">
             github
           </a>
           <a target="_blank" href="https://x.com/home?lang=ja" className="">
